@@ -1,0 +1,8 @@
+body {
+    margin-top: 15px;
+}
+
+.badge.badge-maximum {
+    background-color: green;
+    color: white;
+}

@@ -1,0 +1,25 @@
+<div class="jumbotron">
+    <h1>Vote App</h1>
+    <p>Это пример приложения построенного на Ember.js и ASP.NET 5.</p>
+</div>
+
+<div class="row">
+    {{#each model as |voting|}}
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        {{#link-to 'voting' voting}}
+                            {{voting.title}}
+                        {{/link-to}}
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    {{#link-to 'voting' voting}}
+                        Перейти к голосованию
+                    {{/link-to}}
+                </div>
+            </div>
+        </div>
+    {{/each}}
+</div>

@@ -1,0 +1,23 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            {{model.title}}
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div class="list-group">
+            {{#each sortedOptions as |option|}}
+                <a href="" class="list-group-item" {{action 'vote' option}}>
+                    <span {{bind-attr class=":badge option.isMaximum:badge-maximum"}}>{{option.voteCount}}</span>
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                    {{option.title}}
+                </a>
+            {{/each}}
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                {{ember-chart type='Bar' data=chartData options=chartOptions update=true}}
+            </div>
+        </div>
+    </div>
+</div>

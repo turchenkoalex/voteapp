@@ -17,4 +17,18 @@ var app = new EmberApp();
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
 
+// Bootstrap 3
+app.import('bower_components/bootstrap/dist/js/bootstrap.js');
+app.import('bower_components/bootstrap/dist/css/bootstrap.css');
+app.import('bower_components/bootstrap/dist/css/bootstrap.css.map', { destDir: 'assets' });
+['eot', 'ttf', 'svg', 'woff', 'woff2'].forEach(function (ext) {
+   app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.' + ext , { destDir: 'fonts' });
+});
+
+// MomentJS
+app.import('bower_components/moment/min/moment-with-locales.js');
+
+// ChartJS
+app.import('bower_components/Chart.js/Chart.js');
+
 module.exports = app.toTree();

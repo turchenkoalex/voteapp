@@ -1,3 +1,31 @@
-<h2 id="title">Welcome to Ember.js</h2>
+<div class="container" role="main">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                {{#link-to 'index' classNames='navbar-brand'}}
+                    <img alt="Brand" width="20" height="20" src="assets/images/logo.png">
+                {{/link-to}}
+                {{#link-to 'index' classNames='navbar-brand'}}
+                    Vote App
+                {{/link-to}}
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        {{#link-to 'index'}}
+                            Главная страница
+                        {{/link-to}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-{{outlet}}
+    {{outlet}}
+</div>

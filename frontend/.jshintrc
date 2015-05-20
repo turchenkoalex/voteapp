@@ -2,6 +2,8 @@
   "predef": [
     "document",
     "window",
+    "Chart",
+    "moment",
     "-Promise"
   ],
   "browser": true,
