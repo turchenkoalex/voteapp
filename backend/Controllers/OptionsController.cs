@@ -21,38 +21,18 @@ namespace VoteApp.Controllers
         
         // GET: api/values
         [HttpGet]
-		[Route("{votingId:int}")]
-        public IEnumerable<Option> Get(int votingId)
+		[Route("{id}")]
+        public OptionItem Get(int id)
         {
-            var items = queryBuilder.For<IEnumerable<Option>>().With(new QueryByVoting { VotingId = votingId });
-            return items;
+            var item = queryBuilder.For<OptionItem>().With(new ById { Id = id });
+            return item;
         }
         
-        /*
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        [Route("{id}/vote")]
+        public void Vote(int id)
         {
+            commandBuilder.Execute(new VoteById { Id = id });
         }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        } */
     }
 }

@@ -1,6 +1,6 @@
 namespace VoteApp.Queries
 {
-	public class QueryAll : ICriterion
+	public class All : ICriterion
 	{
 		
 	}

@@ -10,7 +10,7 @@ namespace VoteApp.Commands
 			services.AddTransient<ICommandBuilder, CommandBuilder>();
 			
 			// commands
-            services.AddTransient<ICommandHandler<VotingOptionVote>, VotingOptionVoteHandler>();
+            services.AddTransient<ICommandHandler<VoteById>, VoteByIdHandler>();
 		}
 	}
 }

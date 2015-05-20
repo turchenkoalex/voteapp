@@ -1,5 +1,5 @@
 FROM microsoft/aspnet:1.0.0-beta4
-ADD ./backend /app
+ADD ./build /app
 WORKDIR /app
 RUN ["dnu", "restore", "--packages=/packages"]
 

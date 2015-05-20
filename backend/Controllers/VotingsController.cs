@@ -19,39 +19,18 @@ namespace VoteApp.Controllers
             this.commandBuilder = commandBuilder;
         }
         
-        // GET: api/values
         [HttpGet]
-        public IEnumerable<Voting> Get()
+        public VotingList Get()
         {
-            var items = queryBuilder.For<IEnumerable<Voting>>().With(new QueryAll());
-            return items;
+            var votings = queryBuilder.For<VotingList>().With(new All());
+            return votings;
         }
         
-        /*
-
-        // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public VotingItem Get(int id)
         {
-            return "value";
+            var voting = queryBuilder.For<VotingItem>().With(new ById { Id = id });
+            return voting;
         }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        } */
     }
 }
