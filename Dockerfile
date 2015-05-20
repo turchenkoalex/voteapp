@@ -3,5 +3,5 @@ ADD ./build /app
 WORKDIR /app
 RUN ["dnu", "restore", "--packages=/packages"]
 
-EXPOSE 5004
-ENTRYPOINT ["dnx", "./", "--packages=/packages", "kestrel"]
+EXPOSE 5001
+ENTRYPOINT ["dnx", "/app", "--packages=/packages", "kestrel"]
