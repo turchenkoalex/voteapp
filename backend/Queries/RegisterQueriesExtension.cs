@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Framework.DependencyInjection;
 using VoteApp.Models;
@@ -13,10 +14,14 @@ namespace VoteApp.Queries
             services.AddTransient<IQueryBuilder, QueryBuilder>();
 
             // queries
-            services.AddTransient<IQuery<All, VotingList>, VotingListQuery>();
-            services.AddTransient<IQuery<ById, VotingItem>, VotingItemByIdQuery>();
-            services.AddTransient<IQuery<ByVoting, IEnumerable<int>>, OptionIdsByVotingQuery>();
-            services.AddTransient<IQuery<ById, OptionItem>, OptionItemByIdQuery>();
+            
+            services.AddTransient<IQuery<All, IEnumerable<Voting>>, VotingsQuery>();
+            services.AddTransient<IQuery<ById, Voting>, VotingByIdQuery>();
+            
+            services.AddTransient<IQuery<All, IEnumerable<Option>>, OptionsQuery>();
+            services.AddTransient<IQuery<ById, Option>, OptionByIdQuery>();
+            services.AddTransient<IQuery<OptionsByVoting, IEnumerable<int>>, OptionIdsByVotingQuery>();
+            services.AddTransient<IQuery<OptionsByVoting, IEnumerable<Option>>, OptionsByVotingQuery>();
         }
     }
 }

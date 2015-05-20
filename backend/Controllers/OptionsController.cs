@@ -19,13 +19,15 @@ namespace VoteApp.Controllers
             this.commandBuilder = commandBuilder;
         }
         
-        // GET: api/values
         [HttpGet]
 		[Route("{id}")]
         public OptionItem Get(int id)
         {
-            var item = queryBuilder.For<OptionItem>().With(new ById { Id = id });
-            return item;
+            var option = queryBuilder.For<Option>().With(new ById { Id = id });
+            return new OptionItem
+            {
+                Option = new OptionModel(option)
+            };
         }
         
         [HttpPost]

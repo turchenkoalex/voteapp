@@ -1,4 +1,4 @@
-namespace VoteApp.Queries
+namespace VoteApp.Models
 {
     public class Meta
     {
