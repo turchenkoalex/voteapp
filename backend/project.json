@@ -9,6 +9,10 @@
         "Microsoft.AspNet.StaticFiles": "1.0.0-beta4",
         "Kestrel": "1.0.0-beta4"
     },
+    
+    "compilationOptions": {
+        "warningsAsErrors": true
+    },
 
     "commands": {
         "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000",

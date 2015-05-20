@@ -1,20 +1,33 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
+using VoteApp.Queries;
+using VoteApp.Commands;
+using VoteApp.Models;
 
 namespace VoteApp.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
-    {
+    public class VotingsController : Controller
+    {        
+        private readonly IQueryBuilder queryBuilder;
+        
+        private readonly ICommandBuilder commandBuilder;
+        
+        public VotingsController(IQueryBuilder queryBuilder, ICommandBuilder commandBuilder)
+        {
+            this.queryBuilder = queryBuilder;
+            this.commandBuilder = commandBuilder;
+        }
+        
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Voting> Get()
         {
-            return new string[] { "value1", "value2" };
+            var items = queryBuilder.For<IEnumerable<Voting>>().With(new QueryAll());
+            return items;
         }
+        
+        /*
 
         // GET api/values/5
         [HttpGet("{id}")]
@@ -39,6 +52,6 @@ namespace VoteApp.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-        }
+        } */
     }
 }

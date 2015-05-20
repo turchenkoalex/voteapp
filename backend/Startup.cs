@@ -7,6 +7,10 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Routing;
 using Microsoft.Framework.DependencyInjection;
+using Newtonsoft.Json.Serialization;
+using Microsoft.AspNet.Mvc;
+using VoteApp.Queries;
+using VoteApp.Commands; 
 
 namespace VoteApp
 {
@@ -21,9 +25,17 @@ namespace VoteApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.ConfigureMvc(options => 
+            {
+                var formatter = options.OutputFormatters.First(f => f.Instance is JsonOutputFormatter).Instance as JsonOutputFormatter;
+                formatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
             // Uncomment the following line to add Web API services which makes it easier to port Web API 2 controllers.
             // You will also need to add the Microsoft.AspNet.Mvc.WebApiCompatShim package to the 'dependencies' section of project.json.
             // services.AddWebApiConventions();
+            
+            services.RegisterQueries();
+            services.RegisterCommands();
         }
 
         // Configure is called after ConfigureServices is called.
