@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
@@ -9,6 +10,8 @@ using Microsoft.AspNet.Diagnostics;
 using Microsoft.AspNet.Diagnostics.Entity;
 using VoteApp.Queries;
 using VoteApp.Commands; 
+using Autofac;
+using Autofac.Dnx;
 
 namespace VoteApp
 {
@@ -20,7 +23,7 @@ namespace VoteApp
 
         // This method gets called by a runtime.
         // Use this method to add services to the container
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
 
@@ -33,11 +36,16 @@ namespace VoteApp
             // You will also need to add the Microsoft.AspNet.Mvc.WebApiCompatShim package to the 'dependencies' section of project.json.
             // services.AddWebApiConventions();
 
-            services.RegisterQueries();
-            services.RegisterCommands();
             services.AddEntityFramework()
                 .AddInMemoryStore()
                 .AddDbContext<DAL.ApplicationDbContext>();
+
+            // Autofac configuration
+            var builder = new ContainerBuilder();
+            builder.Populate(services);
+            builder.RegisterModule<AutofacModule>();
+            var container = builder.Build();
+            return container.Resolve<IServiceProvider>();
         }
 
         // Configure is called after ConfigureServices is called.
