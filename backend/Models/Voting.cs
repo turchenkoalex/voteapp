@@ -1,16 +1,8 @@
+using VoteApp.DAL;
 using System.Collections.Generic;
 
 namespace VoteApp.Models
 {
-    public class Voting
-    {
-        public int Id { get; set; }
-
-        public string Title { get; set; }
-
-        public bool Active { get; set; }
-    }
-
     public class VotingModel
     {
         public VotingModel()
@@ -47,7 +39,7 @@ namespace VoteApp.Models
     public class VotingItem
     {
         public VotingModel Voting { get; set; }
-        
+
         public IEnumerable<OptionModel> Options { get; set; }
     }
 }

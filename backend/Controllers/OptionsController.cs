@@ -3,6 +3,7 @@ using Microsoft.AspNet.Mvc;
 using VoteApp.Queries;
 using VoteApp.Commands;
 using VoteApp.Models;
+using VoteApp.DAL;
 
 namespace VoteApp.Controllers
 {

@@ -1,23 +1,36 @@
 using System.Linq;
 using System.Collections.Generic;
-using VoteApp.Models;
-using VoteApp.Stores;
+using VoteApp.DAL;
 
 namespace VoteApp.Queries
 {
     public class VotingsQuery : IQuery<All, IEnumerable<Voting>>
     {
+        private ApplicationDbContext context;
+
+        public VotingsQuery(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
+
         public IEnumerable<Voting> Ask(All criterion)
         {
-            return Store.Votings;
+            return context.Votings.AsNoTracking();
         }
     }
 
     public class VotingByIdQuery : IQuery<ById, Voting>
     {
+        private ApplicationDbContext context;
+
+        public VotingByIdQuery(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
+
         public Voting Ask(ById criterion)
         {
-            return Store.Votings.Single(x => x.Id == criterion.Id);
+            return context.Votings.AsNoTracking().Single(x => x.Id == criterion.Id);
         }
     }
 }

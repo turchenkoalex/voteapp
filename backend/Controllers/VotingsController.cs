@@ -4,28 +4,32 @@ using Microsoft.AspNet.Mvc;
 using VoteApp.Queries;
 using VoteApp.Commands;
 using VoteApp.Models;
+using VoteApp.DAL;
 
 namespace VoteApp.Controllers
 {
     [Route("api/[controller]")]
     public class VotingsController : Controller
-    {        
+    {
         private readonly IQueryBuilder queryBuilder;
         
         private readonly ICommandBuilder commandBuilder;
         
-        public VotingsController(IQueryBuilder queryBuilder, ICommandBuilder commandBuilder)
+        private readonly ApplicationDbContext context;
+
+        public VotingsController(IQueryBuilder queryBuilder, ICommandBuilder commandBuilder, ApplicationDbContext context)
         {
             this.queryBuilder = queryBuilder;
             this.commandBuilder = commandBuilder;
+            this.context = context;
         }
-        
+
         private VotingModel ToVotingModel(Voting voting)
         {
             var optionIds = queryBuilder.For<IEnumerable<int>>().With(new OptionsByVoting { VotingId = voting.Id });
             return new VotingModel(voting, optionIds);
         }
-        
+
         private OptionModel ToOptionModel(Option option)
         {
             return new OptionModel(option);
@@ -36,6 +40,7 @@ namespace VoteApp.Controllers
         {
             var votings = queryBuilder.For<IEnumerable<Voting>>().With(new All());
             var options = queryBuilder.For<IEnumerable<Option>>().With(new All());
+
             return new VotingList
             {
                   Votings = votings.Select(ToVotingModel),
@@ -46,7 +51,7 @@ namespace VoteApp.Controllers
                   }
             };
         }
-        
+
         [HttpGet("{id}")]
         public VotingItem Get(int id)
         {

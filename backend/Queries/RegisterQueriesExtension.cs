@@ -1,7 +1,6 @@
-using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Framework.DependencyInjection;
-using VoteApp.Models;
+using VoteApp.DAL;
 
 namespace VoteApp.Queries
 {
