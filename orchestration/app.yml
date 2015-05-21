@@ -1,0 +1,35 @@
+- name: Vote App
+  hosts: web
+  sudo: true
+  tasks:
+    - name: Update apt cache
+      apt: update_cache=yes
+
+    - name: Install required packages
+      apt: name={{ item }}
+      with_items:
+        - docker.io
+        - python-setuptools
+
+    - name: Install pip
+      easy_install: name=pip
+
+    - name: Install docker-py
+      pip: name=docker-py version=1.1.0
+
+    - name: pull container
+      raw: docker pull turchenkoalex/voteapp
+
+    - name: Start docker.io
+      service:
+        name: docker.io
+        state: started
+
+    - name: launch application container
+      docker:
+        image: turchenkoalex/voteapp
+        name: voteapp
+        docker_api_version: "1.12"
+        ports: "80:5001"
+        state: started
+        tty: true
