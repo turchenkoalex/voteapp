@@ -31,5 +31,5 @@
         name: voteapp
         docker_api_version: "1.12"
         ports: "80:5001"
-        state: started
+        state: reloaded
         tty: true
