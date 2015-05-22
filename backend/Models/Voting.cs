@@ -7,7 +7,6 @@ namespace VoteApp.Models
     {
         public VotingModel()
         {
-
         }
 
         public VotingModel(Voting voting, IEnumerable<int> options)
