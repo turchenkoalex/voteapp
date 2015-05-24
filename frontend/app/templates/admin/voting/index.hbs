@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        {{#link-to 'admin.create' classNames='btn btn-default'}}
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Добавить
+        {{/link-to}}
+    </div>
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Заголовок</th>
+            <th>Активен</th>
+            <th>Количество элементов</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each model as |item|}}
+        <tr>
+            <th scope="row">{{item.id}}</th>
+            <td>{{item.title}}</td>
+            <td>{{item.active}}</td>
+            <td>{{item.options.length}}</td>
+            <td>
+                {{#link-to 'admin.edit' item classNames='btn btn-default'}}
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Редактировать
+                {{/link-to}}
+            </td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>

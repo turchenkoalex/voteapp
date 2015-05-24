@@ -17,15 +17,21 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li>
+                    {{#link-to 'index' tagName='li'}}
                         {{#link-to 'index'}}
                             Главная страница
                         {{/link-to}}
-                    </li>
+                    {{/link-to}}
+                    {{#link-to 'admin' tagName='li'}}
+                        {{#link-to 'admin'}}
+                            Администрирование
+                        {{/link-to}}
+                    {{/link-to}}
                 </ul>
             </div>
         </div>
     </nav>
 
     {{outlet}}
+    {{outlet 'modal'}}
 </div>

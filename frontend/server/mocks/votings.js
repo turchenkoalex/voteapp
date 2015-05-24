@@ -53,7 +53,12 @@ module.exports = function(app) {
   });
 
   votingsRouter.post('/', function(req, res) {
-    res.status(201).end();
+    var voting = req.body.voting;
+    votings.push(voting);
+    voting.id = votings.length;
+    res.status(201).send({
+      'voting': voting
+    });
   });
 
   votingsRouter.get('/:id', function(req, res) {

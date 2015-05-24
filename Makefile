@@ -1,13 +1,13 @@
 all: run
 
-frontend:
+client:
 	cd frontend/ && ember build -prod
 
-fastbuild: clean
+fast: clean
 	cp -r backend/ ./build/
 	cp -r frontend/dist/* ./build/wwwroot
 
-build: clean frontend fastbuild
+build: clean client fast
 
 clean:
 	rm -rf ./build
