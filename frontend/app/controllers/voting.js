@@ -50,7 +50,7 @@ export default Ember.Controller.extend({
             options.forEach((x) => {
                 x.reload();
                 x.rollback();
-            })
+            });
         }
     }.observes('model.options', 'clock.second'),
 
