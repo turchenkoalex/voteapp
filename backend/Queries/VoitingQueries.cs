@@ -15,7 +15,7 @@ namespace VoteApp.Queries
 
         public IEnumerable<Voting> Ask(All criterion)
         {
-            return context.Votings.AsNoTracking();
+            return context.Votings.AsNoTracking().ToList();
         }
     }
 
@@ -30,7 +30,7 @@ namespace VoteApp.Queries
 
         public Voting Ask(ById criterion)
         {
-            return context.Votings.AsNoTracking().Single(x => x.Id == criterion.Id);
+            return context.Votings.AsNoTracking().FirstOrDefault(x => x.Id == criterion.Id);
         }
     }
 }

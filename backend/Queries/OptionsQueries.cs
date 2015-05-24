@@ -25,7 +25,7 @@ namespace VoteApp.Queries
                 .Select(x => x.Id);
         }
     }
-    
+
     public class OptionsByVotingQuery : IQuery<OptionsByVoting, IEnumerable<Option>>
     {
         private readonly ApplicationDbContext context;
@@ -41,7 +41,7 @@ namespace VoteApp.Queries
                 .Where(x => x.VotingId == criterion.VotingId);
         }
     }
-    
+
     public class OptionsQuery : IQuery<All, IEnumerable<Option>>
     {
         private readonly ApplicationDbContext context;
@@ -53,7 +53,7 @@ namespace VoteApp.Queries
 
         public IEnumerable<Option> Ask(All criterion)
         {
-            return context.Options.AsNoTracking();
+            return context.Options.AsNoTracking().ToList();
         }
     }
 
@@ -68,7 +68,7 @@ namespace VoteApp.Queries
 
         public Option Ask(ById criterion)
         {
-            return context.Options.AsNoTracking().Single(x => x.Id == criterion.Id);
+            return context.Options.AsNoTracking().FirstOrDefault(x => x.Id == criterion.Id);
         }
     }
 }

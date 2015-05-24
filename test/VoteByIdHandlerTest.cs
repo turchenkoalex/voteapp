@@ -1,5 +1,7 @@
 using System.Linq;
 using Xunit;
+using Moq;
+using Microsoft.Framework.Logging;
 
 namespace VoteApp.Tests
 {
@@ -17,7 +19,10 @@ namespace VoteApp.Tests
                 });
             context.SaveChanges();
 
-            var handler = new VoteApp.Commands.VoteByIdHandler(context);
+            var logger = Mock.Of<ILogger>();
+            var loggerFactory = Mock.Of<ILoggerFactory>(f => f.CreateLogger(It.IsAny<string>()) == logger);
+
+            var handler = new VoteApp.Commands.VoteByIdHandler(context, loggerFactory);
             var command = new VoteApp.Commands.VoteById() { Id = 999 };
             handler.Execute(command);
             

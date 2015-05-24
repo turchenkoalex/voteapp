@@ -8,13 +8,16 @@
         "Microsoft.AspNet.Server.WebListener": "1.0.0-beta4",
         "Microsoft.AspNet.StaticFiles": "1.0.0-beta4",
         "Kestrel": "1.0.0-beta4",
-        "EntityFramework.InMemory": "7.0.0-beta4",
+        "EntityFramework.SqlServer": "7.0.0-beta4",
+        "EntityFramework.Commands": "7.0.0-beta4",
         "Microsoft.Framework.Logging": "1.0.0-beta4",
         "Microsoft.Framework.Logging.Console": "1.0.0-beta4",
         "Microsoft.AspNet.Diagnostics": "1.0.0-beta4",
         "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-beta4",
+        "Microsoft.Framework.CodeGenerators.Mvc": "1.0.0-beta4",
         "Autofac": "4.0.0-alpha2",
-        "Autofac.Dnx": "4.0.0-alpha2"
+        "Autofac.Dnx": "4.0.0-alpha2",
+        "Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta4"
     },
     
     "compilationOptions": {
@@ -23,7 +26,9 @@
 
     "commands": {
         "web": "Microsoft.AspNet.Hosting --server Microsoft.AspNet.Server.WebListener --server.urls http://localhost:5000",
-        "kestrel": "Microsoft.AspNet.Hosting --server Kestrel --server.urls http://localhost:5001"
+        "kestrel": "Microsoft.AspNet.Hosting --server Kestrel --server.urls http://localhost:5001",
+        "gen": "Microsoft.Framework.CodeGeneration",
+        "ef": "EntityFramework.Commands"
     },
 
     "frameworks": {

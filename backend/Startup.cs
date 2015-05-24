@@ -8,17 +8,25 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.Framework.Logging;
 using Microsoft.AspNet.Diagnostics;
 using Microsoft.AspNet.Diagnostics.Entity;
-using VoteApp.Queries;
-using VoteApp.Commands; 
 using Autofac;
 using Autofac.Dnx;
+using Microsoft.Data.Entity;
+using Microsoft.Framework.ConfigurationModel;
 
 namespace VoteApp
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; set; }
+
         public Startup(IHostingEnvironment env)
         {
+            var configuration = new Configuration()
+                .AddJsonFile("config.json");
+
+            configuration.AddEnvironmentVariables();
+
+            Configuration = configuration;
         }
 
         // This method gets called by a runtime.
@@ -37,8 +45,9 @@ namespace VoteApp
             // services.AddWebApiConventions();
 
             services.AddEntityFramework()
-                .AddInMemoryStore()
-                .AddDbContext<DAL.ApplicationDbContext>();
+                .AddSqlServer()
+                .AddDbContext<DAL.ApplicationDbContext>(options =>
+                    options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
             // Autofac configuration
             var builder = new ContainerBuilder();
@@ -64,6 +73,9 @@ namespace VoteApp
 
             // Add MVC to the request pipeline.
             app.UseMvc();
+
+            // Runtime Info Page
+            app.UseRuntimeInfoPage();
 
             // Add the following route for porting Web API 2 controllers.
             // routes.MapWebApiRoute("DefaultApi", "api/{controller}/{id?}");

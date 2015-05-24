@@ -14,8 +14,6 @@
             "dependencies": {
                 "Moq": "4.2.1312.1622"
             }
-        },
-        "dnxcore50": {
         }
     },
     "commands": {

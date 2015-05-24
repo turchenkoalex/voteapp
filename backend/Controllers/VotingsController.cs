@@ -5,6 +5,7 @@ using VoteApp.Queries;
 using VoteApp.Commands;
 using VoteApp.Models;
 using VoteApp.DAL;
+using Microsoft.AspNet.WebUtilities;
 
 namespace VoteApp.Controllers
 {
@@ -53,15 +54,47 @@ namespace VoteApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public VotingItem Get(int id)
+        public IActionResult Get(int id)
         {
             var voting = queryBuilder.For<Voting>().With(new ById { Id = id });
+            if (voting == null)
+            {
+                return HttpNotFound();
+            }
             var options = queryBuilder.For<IEnumerable<Option>>().With(new OptionsByVoting { VotingId = id });
-            return new VotingItem
+            return Json(new VotingItem
             {
                 Voting = ToVotingModel(voting),
                 Options = options.Select(ToOptionModel)
-            };
+            });
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult Put(int id, [FromBody]VotingItem item)
+        {
+            commandBuilder.Execute(
+                new UpdateVoting
+                {
+                    Id = id,
+                    Title = item.Voting.Title,
+                    Active = item.Voting.Active
+                });
+            return new HttpStatusCodeResult(StatusCodes.Status204NoContent);
+        }
+
+        [HttpPost]
+        public IActionResult Post([FromBody]VotingItem item)
+        {
+            var command =
+                new CreateVoting
+                {
+                    Title = item.Voting.Title,
+                    Active = item.Voting.Active
+                };
+            commandBuilder.Execute(command);
+            item.Voting.Id = command.GeneratedId;
+            return new CreatedAtRouteResult(new { id = command.GeneratedId }, item);
         }
     }
 }
