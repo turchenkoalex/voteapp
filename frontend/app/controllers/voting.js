@@ -47,7 +47,10 @@ export default Ember.Controller.extend({
         let reloadInterval = this.get('reloadInterval');
         if (time % reloadInterval === 0) {
             let options = this.get('model.options');
-            options.reload();
+            options.forEach((x) => {
+                x.reload();
+                x.rollback();
+            })
         }
     }.observes('model.options', 'clock.second'),
 
