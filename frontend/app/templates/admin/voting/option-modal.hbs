@@ -1,0 +1,8 @@
+{{#my-modal title='Вариант голосования' ok='save' close='removeModal'}}
+  <form {{action 'ok' on='submit' target=view}}>
+    <div class="form-group">
+      <label>Название</label>
+      {{input class="form-control" value=model.title}}
+    </div>
+  </form>
+{{/my-modal}}

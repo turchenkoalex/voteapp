@@ -36,6 +36,7 @@
     "ember-export-application-global": "^1.0.2",
     "express": "^4.12.4",
     "glob": "^4.5.3",
+    "immutable": "^3.7.3",
     "morgan": "^1.5.3"
   }
 }

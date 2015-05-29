@@ -39,7 +39,12 @@ module.exports = function(app) {
   });
 
   optionsRouter.post('/', function(req, res) {
-    res.status(201).end();
+    var item = req.body.option;
+    options.push(item);
+    item.id = options.length;
+    res.status(201).send({
+      'option': item
+    });
   });
 
   optionsRouter.get('/:id', function(req, res) {

@@ -1,36 +1,56 @@
+<ol class="breadcrumb">
+  <li>{{link-to 'Администрирование' 'admin'}}</li>
+  <li>{{link-to 'Голосование' 'admin.voting'}}</li>
+  <li class="active">{{model.title}}</li>
+</ol>
+
 <form {{action 'save' on='submit'}}>
   <div class="form-group">
     <label for="title">Заголовок</label>
     {{input value=model.title classNames='form-control' id='title' placeholder='Название голосования'}}
   </div>
+
   <div class="checkbox">
     <label>
       <input type="checkbox" {{bind-attr checked=model.active}}> Активен
     </label>
   </div>
 
-  <table class="table table-hover">
-      <thead>
-          <tr>
-              <th>#</th>
-              <th>Заголовок</th>
-              <th>Действия</th>
-          </tr>
-      </thead>
-      <tbody>
-      {{#each model.options as |item|}}
-          <tr>
-              <th scope="row">{{item.id}}</th>
-              <td>{{item.title}}</td>
-              <td>
-                  {{#link-to 'admin.option' item classNames='btn btn-default'}}
-                      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Редактировать
-                  {{/link-to}}
-              </td>
-          </tr>
-      {{/each}}
-      </tbody>
-  </table>
+  <div class="panel panel-default">
+    <div class="panel-body" {{action 'createOption'}}>
+      <button class="btn btn-default">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Добавить
+      </button>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Заголовок</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{#each model.options as |item|}}
+            <tr>
+                <th scope="row">{{item.id}}</th>
+                <td>{{item.title}}</td>
+                <td>
+                  <button class="btn btn-default" {{action 'showModal' 'admin.voting.option-modal' item}}>
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Редактировать
+                  </button>
+                  <button class="btn btn-danger" {{action 'delete' item}}>
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удалить
+                  </button>
+                </td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+  </div>
 
   <button type="submit" class="btn btn-default">Сохранить</button>
   <button class="btn btn-danger" {{action 'cancel'}}>Отмена</button>
